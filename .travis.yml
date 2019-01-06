@@ -14,6 +14,7 @@ matrix:
       install:
         - gem install bundler
         - bundle install
+        - npm install -g danger
       script:
         - swift test | XCPRETTY_JSON_FILE_OUTPUT=result.json xcpretty -f `xcpretty-json-formatter`
         - DEBUG="*" swift run danger-swift ci
@@ -27,6 +28,7 @@ matrix:
         - bundle install
         - eval "$(curl -sL https://swiftenv.fuller.li/install.sh)"
         - swiftenv global 4.2
+        - npm install -g danger
       script:
         - swift test | XCPRETTY_JSON_FILE_OUTPUT=result.json xcpretty -f `xcpretty-json-formatter`
         - DEBUG="*" swift run danger-swift ci
