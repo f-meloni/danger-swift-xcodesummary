@@ -5,7 +5,7 @@ struct FilePathParser {
         case invalidPath
     }
     
-    static func parseFilePath(filePath: String) throws -> (path: String, line: Int?) {
+    static func parseFilePath(filePath: String, fileManager: FileManager = .default) throws -> (path: String, line: Int?) {
         let regex = try NSRegularExpression(pattern: "(.*?):(\\d*):?\\d*$", options: .allowCommentsAndWhitespace)
         
         let match = regex.firstMatch(in: filePath, options: .anchored, range: NSRange(0..<filePath.count))
@@ -15,16 +15,24 @@ struct FilePathParser {
             throw Errors.invalidPath
         }
         
-        let path = filePath[pathRange]
+        let currentPath = fileManager.currentDirectoryPath.last == "/" ? fileManager.currentDirectoryPath : fileManager.currentDirectoryPath + "/"
+        let path = filePath[pathRange].deletingPrefix(currentPath)
         
         if let lineGroup = match?.range(at: 2),
             let lineRange = Range<String.Index>(lineGroup, in: filePath) {
             
             let line = filePath[lineRange]
             
-            return (String(path), Int(line))
+            return (path, Int(line))
         } else {
-            return (String(path), nil)
+            return (path, nil)
         }
+    }
+}
+
+private extension Substring {
+    func deletingPrefix(_ prefix: String) -> String {
+        guard hasPrefix(prefix) else { return String(self) }
+        return String(dropFirst(prefix.count))
     }
 }
