@@ -1,7 +1,7 @@
 import Foundation
 import Danger
 
-final class XCodeSummary {
+public final class XCodeSummary {
     private enum WarningKeys: String {
         case warnings
         case ldWarning = "ld_warnings"
@@ -65,7 +65,17 @@ final class XCodeSummary {
         self.json = json
     }
     
-    func report() {
+    public convenience init(filePath: String) {
+        guard let data = filePath.data(using: .utf8),
+        let any = try? JSONSerialization.jsonObject(with: data, options: .allowFragments),
+        let json = any as? [String:Any] else {
+            fatalError("Report file invalid")
+        }
+        
+        self.init(json: json)
+    }
+    
+    public func report() {
         warnings.forEach {
             if let file = $0.file,
                 let line = $0.line {
