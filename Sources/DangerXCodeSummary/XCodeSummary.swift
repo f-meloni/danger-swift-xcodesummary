@@ -72,10 +72,14 @@ public final class XCodeSummary {
             fatalError("Report file invalid")
         }
         
+        #warning("Test")
+        
         self.init(json: json)
     }
     
     public func report() {
+        #error("Test2")
+        
         warnings.forEach {
             if let file = $0.file,
                 let line = $0.line {
