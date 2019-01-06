@@ -22,6 +22,6 @@ let package = Package(
             dependencies: ["Danger"]),
         .testTarget(
             name: "DangerXCodeSummaryTests",
-            dependencies: ["DangerXCodeSummary"]),
+            dependencies: ["DangerXCodeSummary", "DangerFixtures"]),
     ]
 )

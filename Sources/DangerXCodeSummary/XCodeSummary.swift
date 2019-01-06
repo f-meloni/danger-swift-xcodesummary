@@ -83,6 +83,8 @@ final class XCodeSummary {
                 fail($0.message)
             }
         }
+        
+        messages.forEach { message($0.message) }
     }
 }
 

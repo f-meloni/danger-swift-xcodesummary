@@ -1,5 +1,7 @@
 import XCTest
 @testable import DangerXCodeSummary
+import Danger
+import DangerFixtures
 
 final class XCodeSummaryTests: XCTestCase {
     func testItParsesWarningsCorrectly() {
@@ -30,5 +32,21 @@ final class XCodeSummaryTests: XCTestCase {
             Result(message: "Executed 3 tests, with 0 failures (0 unexpected) in 0.039 (0.055) seconds"),
             Result(message: "Executed 14 tests, with 0 failures (0 unexpected) in 0.015 (0.025) seconds")
         ])
+    }
+    
+    func testItSendsTheCorrectReportToDanger() {
+        try! DSLGitHubJSON.write(toFile: "dsl.json", atomically: true, encoding: .utf8)
+        CommandLine.arguments = ["", "dsl.json", "result.json"]
+        
+        let danger = Danger()
+        
+        let summary = XCodeSummary(json: JSONFile.jsonObject(fromString: reportTestJSON))
+        summary.report()
+        
+        XCTAssertEqual(danger.warnings.count, 1)
+        XCTAssertEqual(danger.fails.count, 1)
+        XCTAssertEqual(danger.messages.count, 2)
+        
+        try? FileManager.default.removeItem(atPath: "dsl.json")
     }
 }
