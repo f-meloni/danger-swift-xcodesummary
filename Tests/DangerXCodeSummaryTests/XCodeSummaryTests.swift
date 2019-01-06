@@ -4,8 +4,15 @@ import Danger
 import DangerFixtures
 
 final class XCodeSummaryTests: XCTestCase {
+    var dsl: DangerDSL!
+    
+    override func setUp() {
+        super.setUp()
+        dsl = githubFixtureDSL
+    }
+    
     func testItParsesWarningsCorrectly() {
-        let summary = XCodeSummary(json: JSONFile.jsonObject(fromString: warningsJSON))
+        let summary = XCodeSummary(json: JSONFile.jsonObject(fromString: warningsJSON), dsl: dsl)
         
         XCTAssertEqual(summary.warnings, [
             Result(message: "Capabilities that require entitlements from \"SampleProject/SampleProject.entitlements\" may not function in the Simulator because none of the valid provisioning profiles allowed the specified entitlements: com.apple.security.application-groups, keychain-access-groups."),
@@ -15,7 +22,7 @@ final class XCodeSummaryTests: XCTestCase {
     }
     
     func testItParsesErrorsCorrectly() {
-        let summary = XCodeSummary(json: JSONFile.jsonObject(fromString: errorsJSON))
+        let summary = XCodeSummary(json: JSONFile.jsonObject(fromString: errorsJSON), dsl: dsl)
         
         XCTAssertEqual(summary.errors[0], Result(message: "error: Build input file cannot be found: '/Users/franco/Projects/DangerXCodeSummary/Test.swift'"))
         XCTAssertEqual(summary.errors[1], Result(message: "use of undeclared identifier 'trololo'", file: "/Users/musalj/code/OSS/ObjectiveSugar/Classes/NSNumber+ObjectiveSugar.m", line: 26))
@@ -26,7 +33,7 @@ final class XCodeSummaryTests: XCTestCase {
     }
     
     func testItParsesMessagesCorrectly() {
-        let summary = XCodeSummary(json: JSONFile.jsonObject(fromString: testsSummaryJSON))
+        let summary = XCodeSummary(json: JSONFile.jsonObject(fromString: testsSummaryJSON), dsl: dsl)
         
         XCTAssertEqual(summary.messages, [
             Result(message: "Executed 3 tests, with 0 failures (0 unexpected) in 0.039 (0.055) seconds"),
@@ -35,17 +42,12 @@ final class XCodeSummaryTests: XCTestCase {
     }
     
     func testItSendsTheCorrectReportToDanger() {
-        try! DSLGitHubJSON.write(toFile: "dsl.json", atomically: true, encoding: .utf8)
-        CommandLine.arguments = ["", "dsl.json", "result.json"]
-        
-        let danger = Danger()
-        
-        let summary = XCodeSummary(json: JSONFile.jsonObject(fromString: reportTestJSON))
+        let summary = XCodeSummary(json: JSONFile.jsonObject(fromString: reportTestJSON), dsl: dsl)
         summary.report()
         
-        XCTAssertEqual(danger.warnings.count, 1)
-        XCTAssertEqual(danger.fails.count, 1)
-        XCTAssertEqual(danger.messages.count, 2)
+        XCTAssertEqual(dsl.warnings.count, 1)
+        XCTAssertEqual(dsl.fails.count, 1)
+        XCTAssertEqual(dsl.messages.count, 2)
         
         try? FileManager.default.removeItem(atPath: "dsl.json")
     }

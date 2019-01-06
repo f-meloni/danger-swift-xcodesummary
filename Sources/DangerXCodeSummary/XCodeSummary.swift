@@ -21,8 +21,6 @@ public final class XCodeSummary {
         case testSummary = "tests_summary_messages"
     }
     
-    private let json: [String:Any]
-    
     lazy var warnings: [Result] = {
         let warningMessages: [String] = json[WarningKeys.warnings] ?? []
         let ldWarningMessages: [String] = json[WarningKeys.ldWarning] ?? []
@@ -61,8 +59,12 @@ public final class XCodeSummary {
         return messages.map { Result(message: $0.trimmingCharacters(in: .whitespacesAndNewlines)) }
     }()
     
-    init(json: [String:Any]) {
+    private let json: [String:Any]
+    private let dsl: DangerDSL
+    
+    init(json: [String:Any], dsl: DangerDSL = Danger()) {
         self.json = json
+        self.dsl = dsl
     }
     
     public convenience init(filePath: String) {
@@ -79,29 +81,29 @@ public final class XCodeSummary {
         
         #warning("Test")
         
-        self.init(json: json)
+        self.init(json: json, dsl: Danger())
     }
     
     public func report() {
         warnings.forEach {
             if let file = $0.file,
                 let line = $0.line {
-                warn(message: $0.message, file: file, line: line)
+                dsl.warn(message: $0.message, file: file, line: line)
             } else {
-                warn($0.message)
+                dsl.warn($0.message)
             }
         }
         
         errors.forEach {
             if let file = $0.file,
                 let line = $0.line {
-                fail(message: $0.message, file: file, line: line)
+                dsl.fail(message: $0.message, file: file, line: line)
             } else {
-                fail($0.message)
+                dsl.fail($0.message)
             }
         }
         
-        messages.forEach { message($0.message) }
+        messages.forEach { dsl.message($0.message) }
     }
 }
 
