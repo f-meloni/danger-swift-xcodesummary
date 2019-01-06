@@ -3,3 +3,4 @@
 build
 /Packages
 /*.xcodeproj
+result.json
