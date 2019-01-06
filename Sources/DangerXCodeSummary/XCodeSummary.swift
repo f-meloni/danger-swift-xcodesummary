@@ -78,8 +78,6 @@ public final class XCodeSummary {
     }
     
     public func report() {
-        #error("Test2")
-        
         warnings.forEach {
             if let file = $0.file,
                 let line = $0.line {
