@@ -1,0 +1,7 @@
+version: "Apple Swift version 4.2.1 (swiftlang-1000.11.42 clang-1000.11.45.1)"
+options: "a551daabe453c43900e1c045bce567ec"
+build_time: [1546695580, 376013000]
+inputs:
+  "/Users/franco/Projects/DangerSwiftXCodeSummary/.build/checkouts/RequestKit.git-2940304115825254689/Sources/RequestKit/JSONPostRouter.swift": [9223372036, 854775807]
+  "/Users/franco/Projects/DangerSwiftXCodeSummary/.build/checkouts/RequestKit.git-2940304115825254689/Sources/RequestKit/RequestKitSession.swift": [9223372036, 854775807]
+  "/Users/franco/Projects/DangerSwiftXCodeSummary/.build/checkouts/RequestKit.git-2940304115825254689/Sources/RequestKit/Router.swift": [9223372036, 854775807]
