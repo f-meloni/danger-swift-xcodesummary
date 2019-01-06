@@ -72,7 +72,6 @@ public final class XCodeSummary {
             let data = content.data(using: .utf8) else {
             fatalError("Report not found")
         }
-        
  
         guard let any = try? JSONSerialization.jsonObject(with: data, options: .allowFragments),
             let json = any as? [String:Any] else {
