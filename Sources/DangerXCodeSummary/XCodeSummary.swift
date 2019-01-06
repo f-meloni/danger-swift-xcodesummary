@@ -1,7 +1,7 @@
 import Foundation
 import Danger
 
-final class XCodeSummary {
+public final class XCodeSummary {
     private enum WarningKeys: String {
         case warnings
         case ldWarning = "ld_warnings"
@@ -20,8 +20,6 @@ final class XCodeSummary {
     private enum MessageKeys: String {
         case testSummary = "tests_summary_messages"
     }
-    
-    private let json: [String:Any]
     
     lazy var warnings: [Result] = {
         let warningMessages: [String] = json[WarningKeys.warnings] ?? []
@@ -61,30 +59,48 @@ final class XCodeSummary {
         return messages.map { Result(message: $0.trimmingCharacters(in: .whitespacesAndNewlines)) }
     }()
     
-    init(json: [String:Any]) {
+    private let json: [String:Any]
+    private let dsl: DangerDSL
+    
+    init(json: [String:Any], dsl: DangerDSL = Danger()) {
         self.json = json
+        self.dsl = dsl
     }
     
-    func report() {
+    public convenience init(filePath: String) {
+        guard let content = try? String(contentsOfFile: filePath),
+            let data = content.data(using: .utf8) else {
+            fatalError("Report not found")
+        }
+ 
+        guard let any = try? JSONSerialization.jsonObject(with: data, options: .allowFragments),
+            let json = any as? [String:Any] else {
+            fatalError("Report file is not a valid json")
+        }
+        
+        self.init(json: json, dsl: Danger())
+    }
+    
+    public func report() {
         warnings.forEach {
             if let file = $0.file,
                 let line = $0.line {
-                warn(message: $0.message, file: file, line: line)
+                dsl.warn(message: $0.message, file: file, line: line)
             } else {
-                warn($0.message)
+                dsl.warn($0.message)
             }
         }
         
         errors.forEach {
             if let file = $0.file,
                 let line = $0.line {
-                fail(message: $0.message, file: file, line: line)
+                dsl.fail(message: $0.message, file: file, line: line)
             } else {
-                fail($0.message)
+                dsl.fail($0.message)
             }
         }
         
-        messages.forEach { message($0.message) }
+        messages.forEach { dsl.message($0.message) }
     }
 }
 

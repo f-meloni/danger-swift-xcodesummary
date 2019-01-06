@@ -1,7 +1,8 @@
 import XCTest
 
-import DangerSwiftXCodeSummaryTests
+import DangerXCodeSummaryTests
 
 var tests = [XCTestCaseEntry]()
-tests += DangerSwiftXCodeSummaryTests.allTests()
+tests += DangerXCodeSummaryTests.__allTests()
+
 XCTMain(tests)
