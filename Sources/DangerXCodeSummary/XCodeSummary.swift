@@ -66,10 +66,16 @@ public final class XCodeSummary {
     }
     
     public convenience init(filePath: String) {
-        guard let data = filePath.data(using: .utf8),
-        let any = try? JSONSerialization.jsonObject(with: data, options: .allowFragments),
-        let json = any as? [String:Any] else {
-            fatalError("Report file invalid")
+        guard let data = filePath.data(using: .utf8) else {
+            fatalError("Report not found")
+        }
+        
+        guard let any = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) else {
+            fatalError("Report file is not a json")
+        }
+        
+        guard let json = any as? [String:Any] else {
+            fatalError("Report file is not aaa json")
         }
         
         #warning("Test")
