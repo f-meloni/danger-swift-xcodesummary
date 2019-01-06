@@ -76,7 +76,7 @@ public final class XCodeSummary {
  
         guard let any = try? JSONSerialization.jsonObject(with: data, options: .allowFragments),
             let json = any as? [String:Any] else {
-            fatalError("Report file is not aaa json")
+            fatalError("Report file is not a valid json")
         }
         
         self.init(json: json, dsl: Danger())
