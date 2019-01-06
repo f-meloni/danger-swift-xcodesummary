@@ -1,5 +1,0 @@
-version: "Apple Swift version 4.2.1 (swiftlang-1000.11.42 clang-1000.11.45.1)"
-options: "d20ac7ae3794089bf4c2a14e4b12334b"
-build_time: [1546695586, 651160000]
-inputs:
-  "/Users/franco/Projects/DangerSwiftXCodeSummary/.build/checkouts/ShellOut--585539381178413120/Sources/ShellOut.swift": [9223372036, 854775807]
