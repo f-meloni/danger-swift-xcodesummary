@@ -18,6 +18,8 @@ struct FilePathParser {
         let currentPath = fileManager.currentDirectoryPath.last == "/" ? fileManager.currentDirectoryPath : fileManager.currentDirectoryPath + "/"
         let path = filePath[pathRange].deletingPrefix(currentPath)
         
+        #warning("Test")
+        
         if let lineGroup = match?.range(at: 2),
             let lineRange = Range<String.Index>(lineGroup, in: filePath) {
             
