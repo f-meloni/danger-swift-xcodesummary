@@ -79,8 +79,6 @@ public final class XCodeSummary {
             fatalError("Report file is not aaa json")
         }
         
-        #warning("Test")
-        
         self.init(json: json, dsl: Danger())
     }
     
