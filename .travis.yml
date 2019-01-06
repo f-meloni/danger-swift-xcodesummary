@@ -1,0 +1,30 @@
+cache:
+  directories:
+    # General SwiftPM
+    - .build
+    # Danger Swift plugins
+    - ~/.danger-swift
+
+language: generic
+
+matrix:
+  include:
+    - os: osx
+      osx_image: xcode10
+      install:
+        - bundle install
+      script:
+        - swift test | XCPRETTY_JSON_FILE_OUTPUT=result.json xcpretty -f `xcpretty-json-formatter`
+        - DEBUG="*" swift run danger-swift ci
+
+    - os: linux
+      language: generic
+      sudo: required
+      dist: trusty
+      install:
+        - bundle install
+        - eval "$(curl -sL https://swiftenv.fuller.li/install.sh)"
+        - swiftenv global 4.2
+      script:
+        - swift test | XCPRETTY_JSON_FILE_OUTPUT=result.json xcpretty -f `xcpretty-json-formatter`
+        - DEBUG="*" swift run danger-swift ci
