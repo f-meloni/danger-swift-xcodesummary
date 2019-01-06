@@ -13,6 +13,5 @@ final class TestFailuresParserTests: XCTestCase {
         XCTAssertEqual(result.message, "**\(testSuite)**: testAllRankCases, XCTAssertEqual failed: (\"13\") is not equal to (\"12\") -")
         XCTAssertEqual(result.file, "/BlackJack/Framework/Tests/Failing/FailingCardTests.swift")
         XCTAssertEqual(result.line, 19)
-        XCTAssert(false)
     }
 }
