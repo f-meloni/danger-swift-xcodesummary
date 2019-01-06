@@ -5,9 +5,11 @@ final class FilePathParserTests: XCTestCase {
     func testItParsesCorrectlyTheLineAndThePath() {
         let filePath = "/Users/musalj/code/OSS/ObjectiveRecord/Example/SampleProjectTests/FindersAndCreatorsTests.m:111"
         
-        let result = try? FilePathParser.parseFilePath(filePath: filePath)
+        let fileManager = StubbedFileManager()
+        fileManager.stubbedCurrentDirectoryPath = "/Users/musalj/code/OSS/ObjectiveRecord"
+        let result = try? FilePathParser.parseFilePath(filePath: filePath, fileManager: fileManager)
         
-        XCTAssertEqual(result?.path, "/Users/musalj/code/OSS/ObjectiveRecord/Example/SampleProjectTests/FindersAndCreatorsTests.m")
+        XCTAssertEqual(result?.path, "Example/SampleProjectTests/FindersAndCreatorsTests.m")
         XCTAssertEqual(result?.line, 111)
     }
     
@@ -15,5 +17,13 @@ final class FilePathParserTests: XCTestCase {
         let filePath = "/Users/musalj/code/OSS/ObjectiveRecord/Example/SampleProjectTests/FindersAndCreatorsTests.m"
 
         XCTAssertThrowsError(try FilePathParser.parseFilePath(filePath: filePath))
+    }
+}
+
+private final class StubbedFileManager: FileManager {
+    var stubbedCurrentDirectoryPath: String!
+    
+    override var currentDirectoryPath: String {
+        return stubbedCurrentDirectoryPath
     }
 }
