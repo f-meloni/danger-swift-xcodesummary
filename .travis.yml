@@ -1,5 +1,13 @@
 language: generic
 
+
+cache:
+  directories:
+    # General SwiftPM
+    - .build
+    # Danger Swift plugins
+    - ~/.danger-swift
+
 matrix:
   include:
     - os: osx	
