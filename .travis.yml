@@ -7,6 +7,8 @@ cache:
     - .build
     # Danger Swift plugins
     - ~/.danger-swift
+    # XCodebuild cache
+    - build  
 
 matrix:
   include:
