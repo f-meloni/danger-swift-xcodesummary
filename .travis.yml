@@ -9,7 +9,8 @@ matrix:
         - bundle install	
         - npm install -g danger	
       script:
-        - swift test | XCPRETTY_JSON_FILE_OUTPUT=result.json xcpretty -f `xcpretty-json-formatter`	
+        - xcodebuild test -scheme DangerXCodeSummary-Package | XCPRETTY_JSON_FILE_OUTPUT=result.json xcpretty -f `xcpretty-json-formatter`	
+        - swift build
         # Add a fake tag to make Marathone take this version of the library	
         - git tag 1000.0.0	
         - DEBUG="*" swift run danger-swift ci
