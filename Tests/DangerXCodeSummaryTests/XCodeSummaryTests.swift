@@ -1,6 +1,6 @@
 import XCTest
 @testable import DangerXCodeSummary
-import Danger
+@testable import Danger
 import DangerFixtures
 
 final class XCodeSummaryTests: XCTestCase {
@@ -9,6 +9,13 @@ final class XCodeSummaryTests: XCTestCase {
     override func setUp() {
         super.setUp()
         dsl = githubFixtureDSL
+    }
+    
+    override func tearDown() {
+        dsl = nil
+        resetDangerResults()
+        
+        super.tearDown()
     }
     
     func testItParsesWarningsCorrectly() {

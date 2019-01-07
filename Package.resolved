@@ -15,8 +15,8 @@
         "repositoryURL": "https://github.com/f-meloni/Logger",
         "state": {
           "branch": null,
-          "revision": "ca5703dd05cabad21ee6cd77023a7bb7d5c9eeba",
-          "version": "0.2.1"
+          "revision": "c1cb5a142b99687ecc55d8de101bf082889f5fd1",
+          "version": "0.2.2"
         }
       },
       {
@@ -29,30 +29,12 @@
         }
       },
       {
-        "package": "Nimble",
-        "repositoryURL": "https://github.com/Quick/Nimble",
-        "state": {
-          "branch": null,
-          "revision": "cd6dfb86f496fcd96ce0bc6da962cd936bf41903",
-          "version": "7.3.1"
-        }
-      },
-      {
         "package": "OctoKit",
         "repositoryURL": "https://github.com/nerdishbynature/octokit.swift",
         "state": {
           "branch": null,
           "revision": "b63f2ec1b55f26c8e94159d81ad695aeb92f3d4e",
           "version": "0.9.0"
-        }
-      },
-      {
-        "package": "Quick",
-        "repositoryURL": "https://github.com/Quick/Quick",
-        "state": {
-          "branch": null,
-          "revision": "5fbf13871d185526993130c3a1fad0b70bfe37ce",
-          "version": "1.3.2"
         }
       },
       {
@@ -96,17 +78,8 @@
         "repositoryURL": "https://github.com/danger/swift",
         "state": {
           "branch": null,
-          "revision": "ddd5a70f9b394207cbf95ac28e366f0e579e641c",
-          "version": "1.0.0"
-        }
-      },
-      {
-        "package": "TestSpy",
-        "repositoryURL": "https://github.com/f-meloni/TestSpy",
-        "state": {
-          "branch": null,
-          "revision": "e0f1e9d4d10080762bb3b5256a94f347e74416f0",
-          "version": "0.3.1"
+          "revision": "89a20f7d9520f2c7f7c13f8deb77a422b404e36d",
+          "version": "1.1.0"
         }
       },
       {
