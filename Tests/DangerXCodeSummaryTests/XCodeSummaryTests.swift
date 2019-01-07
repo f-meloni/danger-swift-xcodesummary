@@ -26,6 +26,8 @@ final class XCodeSummaryTests: XCTestCase {
             Result(message: "Linker asked to preserve internal global: '__block_descriptor_tmp'"),
             Result(message: "Test", file: "/Users/franco/Projects/DangerXCodeSummary/Sources/DangerXCodeSummary/XCodeSummary.swift", line: 26)
         ])
+        
+        XCTAssert(false)
     }
     
     func testItParsesErrorsCorrectly() {
