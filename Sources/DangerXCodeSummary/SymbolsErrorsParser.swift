@@ -17,8 +17,6 @@ struct SymbolsErrorsParser {
         "> Symbol: \(symbol) <br />" +
         "> Referenced from: \(reference)"
         
-        #warning("Test")
-        
         return Result(message: resultText)
     }
     
