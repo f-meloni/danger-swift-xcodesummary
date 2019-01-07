@@ -1,7 +1,30 @@
 language: generic
 
+
+cache:
+  directories:
+    # General SwiftPM
+    - .build
+    # Danger Swift plugins
+    - ~/.danger-swift
+    # XCodebuild cache
+    - build  
+
 matrix:
   include:
+    - os: osx	
+      osx_image: xcode10	
+      install:	
+        - gem install bundler	
+        - bundle install	
+        - npm install -g danger	
+      script:
+        - swift package generate-xcodeproj
+        - xcodebuild test -scheme DangerXCodeSummary-Package | XCPRETTY_JSON_FILE_OUTPUT=result.json xcpretty -f `xcpretty-json-formatter`	
+        - swift build
+        # Add a fake tag to make Marathone take this version of the library	
+        - git tag 1000.0.0	
+        - DEBUG="*" swift run danger-swift ci
     - os: linux
       language: generic
       sudo: required
