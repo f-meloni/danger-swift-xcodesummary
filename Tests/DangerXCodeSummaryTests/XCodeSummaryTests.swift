@@ -11,6 +11,13 @@ final class XCodeSummaryTests: XCTestCase {
         dsl = githubFixtureDSL
     }
     
+    override func tearDown() {
+        dsl = nil
+        resetDangerResults()
+        
+        super.tearDown()
+    }
+    
     func testItParsesWarningsCorrectly() {
         let summary = XCodeSummary(json: JSONFile.jsonObject(fromString: warningsJSON), dsl: dsl)
         
@@ -50,7 +57,5 @@ final class XCodeSummaryTests: XCTestCase {
         XCTAssertEqual(dsl.messages.count, 2)
         
         try? FileManager.default.removeItem(atPath: "dsl.json")
-        
-        resetDangerResults()
     }
 }
