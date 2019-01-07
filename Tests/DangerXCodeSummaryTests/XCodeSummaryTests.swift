@@ -1,6 +1,6 @@
 import XCTest
 @testable import DangerXCodeSummary
-import Danger
+@testable import Danger
 import DangerFixtures
 
 final class XCodeSummaryTests: XCTestCase {
@@ -50,5 +50,7 @@ final class XCodeSummaryTests: XCTestCase {
         XCTAssertEqual(dsl.messages.count, 2)
         
         try? FileManager.default.removeItem(atPath: "dsl.json")
+        
+        resetDangerResults()
     }
 }
