@@ -37,7 +37,6 @@ final class XCodeSummaryTests: XCTestCase {
         XCTAssertTrue(summary.errors.contains(Result(message: "**BlackJack_iOS_Failing_Tests.FailingCardTestCase: testAllRankCases**<br />XCTAssertEqual failed: (\"13\") is not equal to (\"12\")", file: "/BlackJack/Framework/Tests/Failing/FailingCardTests.swift", line: 19)))
         XCTAssertTrue(summary.errors.contains(Result(message: "**BlackJack_iOS_Failing_Tests.FailingCardTestCase: testAllSuitCases**<br />XCTAssertEqual failed: (\"4\") is not equal to (\"3\")", file: "/BlackJack/Framework/Tests/Failing/FailingCardTests.swift", line: 27)))
         XCTAssertTrue(summary.errors.contains(Result(message: "**BlackJack_Tests.DeckTestCase: testStandardDeck**<br />XCTAssertEqual failed: (\"52\") is not equal to (\"51\")", file: "/BlackJack/Framework/Tests/DeckTests.swift", line: 49)))
-        XCTAssertTrue(false)
     }
     
     func testItParsesMessagesCorrectly() {
