@@ -11,7 +11,7 @@ struct TestFailuresParser {
         let reason = testJSON[Keys.reason] ?? ""
         let filePath = testJSON[Keys.filePath] ?? ""
         
-        let message = "**\(testSuite): \(testCase)**<br />\(reason.deletingSuffix(" -"))"
+        let message = "**\(testSuite): \(testCase)**<br />\(reason.deletingSuffix(" -").deletingSuffix(" - "))"
         let (file, line) = try FilePathParser.parseFilePath(filePath: filePath)
         
         return Result(message: message, file: file, line: line)

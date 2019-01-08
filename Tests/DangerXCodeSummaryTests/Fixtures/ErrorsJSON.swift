@@ -46,7 +46,7 @@ let errorsJSON: String = """
       },
       {
         "file_path": "/BlackJack/Framework/Tests/Failing/FailingCardTests.swift:27",
-        "reason": "XCTAssertEqual failed: (\\"4\\") is not equal to (\\"3\\") -",
+        "reason": "XCTAssertEqual failed: (\\"4\\") is not equal to (\\"3\\") - ",
         "test_case": "testAllSuitCases"
       }
     ],
