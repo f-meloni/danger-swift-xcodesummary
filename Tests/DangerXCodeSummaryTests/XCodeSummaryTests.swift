@@ -34,9 +34,9 @@ final class XCodeSummaryTests: XCTestCase {
         XCTAssertEqual(summary.errors[0], Result(message: "error: Build input file cannot be found: '/Users/franco/Projects/DangerXCodeSummary/Test.swift'"))
         XCTAssertEqual(summary.errors[1], Result(message: "use of undeclared identifier 'trololo'", file: "/Users/musalj/code/OSS/ObjectiveSugar/Classes/NSNumber+ObjectiveSugar.m", line: 26))
         XCTAssertEqual(summary.errors[2], Result(message: "returning 'float' from a function with incompatible result type 'NSNumber *'", file: "/Users/musalj/code/OSS/ObjectiveSugar/Classes/NSNumber+ObjectiveSugar.m", line: 47))
-        XCTAssertTrue(summary.errors.contains(Result(message: "**BlackJack_iOS_Failing_Tests.FailingCardTestCase**: testAllRankCases, XCTAssertEqual failed: (\"13\") is not equal to (\"12\") -", file: "/BlackJack/Framework/Tests/Failing/FailingCardTests.swift", line: 19)))
-        XCTAssertTrue(summary.errors.contains(Result(message: "**BlackJack_iOS_Failing_Tests.FailingCardTestCase**: testAllSuitCases, XCTAssertEqual failed: (\"4\") is not equal to (\"3\") -", file: "/BlackJack/Framework/Tests/Failing/FailingCardTests.swift", line: 27)))
-        XCTAssertTrue(summary.errors.contains(Result(message: "**BlackJack_Tests.DeckTestCase**: testStandardDeck, XCTAssertEqual failed: (\"52\") is not equal to (\"51\") -", file: "/BlackJack/Framework/Tests/DeckTests.swift", line: 49)))
+        XCTAssertTrue(summary.errors.contains(Result(message: "**BlackJack_iOS_Failing_Tests.FailingCardTestCase: testAllRankCases**<br />XCTAssertEqual failed: (\"13\") is not equal to (\"12\")", file: "/BlackJack/Framework/Tests/Failing/FailingCardTests.swift", line: 19)))
+        XCTAssertTrue(summary.errors.contains(Result(message: "**BlackJack_iOS_Failing_Tests.FailingCardTestCase: testAllSuitCases**<br />XCTAssertEqual failed: (\"4\") is not equal to (\"3\")", file: "/BlackJack/Framework/Tests/Failing/FailingCardTests.swift", line: 27)))
+        XCTAssertTrue(summary.errors.contains(Result(message: "**BlackJack_Tests.DeckTestCase: testStandardDeck**<br />XCTAssertEqual failed: (\"52\") is not equal to (\"51\")", file: "/BlackJack/Framework/Tests/DeckTests.swift", line: 49)))
     }
     
     func testItParsesMessagesCorrectly() {
