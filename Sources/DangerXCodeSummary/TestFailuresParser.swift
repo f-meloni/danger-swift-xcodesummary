@@ -11,9 +11,17 @@ struct TestFailuresParser {
         let reason = testJSON[Keys.reason] ?? ""
         let filePath = testJSON[Keys.filePath] ?? ""
         
-        let message = "**\(testSuite)**: \(testCase), \(reason)"
+        let message = "**\(testSuite): \(testCase)**<br />\(reason.deletingSuffix(" -").deletingSuffix(" - "))"
         let (file, line) = try FilePathParser.parseFilePath(filePath: filePath)
         
         return Result(message: message, file: file, line: line)
+    }
+}
+
+
+private extension String {
+    func deletingSuffix(_ suffix: String) -> String {
+        guard hasSuffix(suffix) else { return String(self) }
+        return String(dropLast(suffix.count))
     }
 }

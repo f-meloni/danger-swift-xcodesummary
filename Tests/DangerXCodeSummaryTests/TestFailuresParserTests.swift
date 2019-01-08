@@ -10,7 +10,7 @@ final class TestFailuresParserTests: XCTestCase {
         
         let result = try! TestFailuresParser.parseTest(testJSON: testJSON, testSuite: testSuite)
         
-        XCTAssertEqual(result.message, "**\(testSuite)**: testAllRankCases, XCTAssertEqual failed: (\"13\") is not equal to (\"12\") -")
+        XCTAssertEqual(result.message, "**\(testSuite): testAllRankCases**<br />XCTAssertEqual failed: (\"13\") is not equal to (\"12\")")
         XCTAssertEqual(result.file, "/BlackJack/Framework/Tests/Failing/FailingCardTests.swift")
         XCTAssertEqual(result.line, 19)
     }
