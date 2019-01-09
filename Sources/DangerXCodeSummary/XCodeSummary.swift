@@ -41,7 +41,7 @@ public final class XCodeSummary {
         
         var result = errors.map { Result(message: $0) }
         result += compileErrors.compactMap { try? CompilerMessageParser.parseMessage(messageJSON: $0) }
-        result += missingFiles.compactMap { try? CompilerMessageParser.parseMessage(messageJSON: $0) }
+        result += missingFiles.compactMap { MissingFileErrorParser.parseMissingFileError(missingFileErrorJSON: $0) }
         result += undefinedSymbols.map { SymbolsErrorsParser.parseUndefinedSymbols(json: $0) }
         result += duplicatedSymbols.map { SymbolsErrorsParser.parseDuplicatedSymbols(json: $0) }
         
