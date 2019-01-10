@@ -26,6 +26,8 @@ final class XCodeSummaryTests: XCTestCase {
             Result(message: "Linker asked to preserve internal global: '__block_descriptor_tmp'"),
             Result(message: "Test", file: "/Users/franco/Projects/DangerXCodeSummary/Sources/DangerXCodeSummary/XCodeSummary.swift", line: 26)
         ])
+        
+        XCTAssertEqual(summary.warningsCount, 3)
     }
     
     func testItParsesErrorsCorrectly() {
@@ -37,6 +39,7 @@ final class XCodeSummaryTests: XCTestCase {
         XCTAssertTrue(summary.errors.contains(Result(message: "**BlackJack_iOS_Failing_Tests.FailingCardTestCase: testAllRankCases**<br />XCTAssertEqual failed: (\"13\") is not equal to (\"12\")", file: "/BlackJack/Framework/Tests/Failing/FailingCardTests.swift", line: 19)))
         XCTAssertTrue(summary.errors.contains(Result(message: "**BlackJack_iOS_Failing_Tests.FailingCardTestCase: testAllSuitCases**<br />XCTAssertEqual failed: (\"4\") is not equal to (\"3\")", file: "/BlackJack/Framework/Tests/Failing/FailingCardTests.swift", line: 27)))
         XCTAssertTrue(summary.errors.contains(Result(message: "**BlackJack_Tests.DeckTestCase: testStandardDeck**<br />XCTAssertEqual failed: (\"52\") is not equal to (\"51\")", file: "/BlackJack/Framework/Tests/DeckTests.swift", line: 49)))
+        XCTAssertEqual(summary.errorsCount, 7)
     }
     
     func testItParsesMessagesCorrectly() {

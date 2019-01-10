@@ -31,6 +31,10 @@ public final class XCodeSummary {
             compileWarnings.compactMap { try? CompilerMessageParser.parseMessage(messageJSON: $0) }
     }()
     
+    public var warningsCount: Int {
+        return warnings.count
+    }
+    
     lazy var errors: [Result] = {
         let errors: [String] = json[ErrorKeys.errors] ?? []
         let compileErrors: [[String:Any]] = json[ErrorKeys.compileErrors] ?? []
@@ -53,6 +57,10 @@ public final class XCodeSummary {
         
         return result
     }()
+    
+    public var errorsCount: Int {
+        return errors.count
+    }
     
     lazy var messages: [Result] = {
         let messages: [String] = json[MessageKeys.testSummary] ?? []
