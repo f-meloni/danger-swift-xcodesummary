@@ -19,7 +19,7 @@ let summary = XCodeSummary(filePath: "result.json")
 summary.report()
 ```
 
-## Warning and Errors count
+## Warning and Errors count
 
 ```swift
 if summary.errorsCount > maxErrorCount {
