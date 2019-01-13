@@ -37,3 +37,4 @@ let config = PackageConfig([
         ]
     ]
 ])
+#endif
