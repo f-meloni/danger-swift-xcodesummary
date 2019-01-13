@@ -3,6 +3,8 @@ A Danger-Swift plugin that adds build errors, warnings and unit tests results ge
 
 Inspired by [danger-xcode_summary](https://github.com/diogot/danger-xcode_summary)
 
+![DangerXCodeSummary](Images/DangerXCodeSummary.png)
+
 ## Getting Started
 
 - Install [xcpretty](https://github.com/supermarin/xcpretty) and 
