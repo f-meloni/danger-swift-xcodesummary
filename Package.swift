@@ -26,3 +26,14 @@ let package = Package(
             dependencies: ["DangerXCodeSummary", "DangerFixtures"]),
     ]
 )
+
+#if canImport(PackageConfig)
+import PackageConfig
+
+let config = PackageConfig([
+    "rocket": [
+        "after": [
+            "push"
+        ]
+    ]
+])
