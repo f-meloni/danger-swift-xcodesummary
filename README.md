@@ -25,6 +25,8 @@ let summary = XCodeSummary(filePath: "result.json")
 xcodebuild | XCPRETTY_JSON_FILE_OUTPUT=result.json xcpretty -f `xcpretty-json-formatter`
 ```
 
+- (Recommended) Cache `~/.danger-swift` folder
+
 
 ## Run with SPM
 DangerXCodeSummary can be used with SPM (this repo uses it on the Linux CI), but at the moment falining tests inline messages are not generated, if you use SPM.
