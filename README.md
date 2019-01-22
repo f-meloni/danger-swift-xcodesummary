@@ -29,7 +29,7 @@ xcodebuild | XCPRETTY_JSON_FILE_OUTPUT=result.json xcpretty -f `xcpretty-json-fo
 
 
 ## Run with SPM
-DangerXCodeSummary can be used with SPM (this repo uses it on the Linux CI), but at the moment falining tests inline messages are not generated, if you use SPM.
+DangerXCodeSummary can be used with SPM (this repo uses it on the Linux CI), but at the moment, if you use SPM, falining tests inline messages are not generated.
 To generate the report run:
 
 ```bash
