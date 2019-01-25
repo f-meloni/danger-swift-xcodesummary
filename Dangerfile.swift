@@ -1,5 +1,5 @@
 import Danger
-import DangerXCodeSummary // package: .
+import DangerXCodeSummary
 
 let danger = Danger()
 

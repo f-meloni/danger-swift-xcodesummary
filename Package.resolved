@@ -75,11 +75,11 @@
       },
       {
         "package": "Rocket",
-        "repositoryURL": "https://github.com/f-meloni/rocket",
+        "repositoryURL": "https://github.com/f-meloni/Rocket",
         "state": {
           "branch": null,
-          "revision": "1a9686ff181740274b7421894d161bdd97b0af6b",
-          "version": "0.4.1"
+          "revision": "6e5ad004c8f488b81a44639a6690b19098f4e408",
+          "version": "0.5.0"
         }
       },
       {
@@ -96,8 +96,8 @@
         "repositoryURL": "https://github.com/danger/swift",
         "state": {
           "branch": null,
-          "revision": "89a20f7d9520f2c7f7c13f8deb77a422b404e36d",
-          "version": "1.1.0"
+          "revision": "73762cdd73b3434e3541c13b8d480bd17d0fbc63",
+          "version": "1.2.0"
         }
       },
       {
