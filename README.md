@@ -13,7 +13,7 @@ Inspired by [danger-xcode_summary](https://github.com/diogot/danger-xcode_summar
 - Add this to your `Dangerfile.swift`
 
 ```swift
-import DangerPlugin // package: https://github.com/f-meloni/danger-swift-xcodesummary
+import DangerXCodeSummary // package: https://github.com/f-meloni/danger-swift-xcodesummary
 
 let summary = XCodeSummary(filePath: "result.json")
 ```
