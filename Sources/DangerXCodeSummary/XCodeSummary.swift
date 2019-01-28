@@ -1,6 +1,8 @@
 import Foundation
 import Danger
 
+/// Danger-Swift plugin that adds build errors, warnings and unit tests results generated from xcodebuild to your Danger report
+/// Requires xcpretty-json-formatter
 public final class XCodeSummary {
     private enum WarningKeys: String {
         case warnings
@@ -31,6 +33,7 @@ public final class XCodeSummary {
             compileWarnings.compactMap { try? CompilerMessageParser.parseMessage(messageJSON: $0) }
     }()
     
+    /// Number of warnings generated during the build
     public var warningsCount: Int {
         return warnings.count
     }
@@ -58,6 +61,7 @@ public final class XCodeSummary {
         return result
     }()
     
+    /// Number of errors generated during the build
     public var errorsCount: Int {
         return errors.count
     }
@@ -89,6 +93,7 @@ public final class XCodeSummary {
         self.init(json: json, dsl: Danger())
     }
     
+    /// Shows all build errors, warnings and unit tests results generated from `xcodebuild` or `Swift Package Manager`
     public func report() {
         warnings.forEach {
             if let file = $0.file,
