@@ -5,8 +5,6 @@ cache:
   directories:
     # General SwiftPM
     - .build
-    # Danger Swift plugins
-    - ~/.danger-swift
     # XCodebuild cache
     - build  
 
