@@ -18,7 +18,7 @@ matrix:
         - npm install -g danger	
       script:
         - swift package generate-xcodeproj
-        - xcodebuild test -scheme DangerXCodeSummary-Package | XCPRETTY_JSON_FILE_OUTPUT=result.json xcpretty -f `xcpretty-json-formatter`	
+        - xcodebuild test -scheme DangerXCodeSummary-Package -enableCodeCoverage YES | XCPRETTY_JSON_FILE_OUTPUT=result.json xcpretty -f `xcpretty-json-formatter`	
         - DEBUG="*" swift run danger-swift ci
     - os: linux
       language: generic
