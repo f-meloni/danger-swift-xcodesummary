@@ -10,20 +10,20 @@ let package = Package(
         .library(
             name: "DangerXCodeSummary",
             targets: ["DangerXCodeSummary"]),
-        .library(name: "DangerDeps", type: .dynamic, targets: ["DangerXCodeSummary"]) // dev
+        .library(name: "DangerDeps", type: .dynamic, targets: ["DangerDependencies"]) // dev
     ],
     dependencies: [
         .package(url: "https://github.com/danger/swift", from: "1.0.0"),
-        .package(url: "https://github.com/f-meloni/Rocket", from: "0.4.0")
+        .package(url: "https://github.com/f-meloni/Rocket", from: "0.4.0"), // dev
+        .package(url: "https://github.com/f-meloni/danger-swift-coverage", from: "0.1.0")
     ],
     targets: [
-        // Targets are the basic building blocks of a package. A target can define a module or a test suite.
-        // Targets can depend on other targets in this package, and on products in packages which this package depends on.
+        .target(name: "DangerDependencies",dependencies: ["Danger", "DangerXCodeSummary", "DangerSwiftCoverage"]), //dev
         .target(
             name: "DangerXCodeSummary",
             dependencies: ["Danger"]),
         .testTarget(
             name: "DangerXCodeSummaryTests",
-            dependencies: ["DangerXCodeSummary", "DangerFixtures"]),
+            dependencies: ["DangerXCodeSummary", "DangerSwiftCoverage", "DangerFixtures"]),
     ]
 )
