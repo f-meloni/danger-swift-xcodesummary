@@ -9,5 +9,5 @@ let summary = XCodeSummary(filePath: "result.json")
 summary.report()
 
 if FileManager.default.fileExists(atPath: "DangerXCodeSummary.xcodeproj") {
-    Coverage.xcodeBuildCoverage(derivedDataFolder: "build", minimumCoverage: 50)
+    Coverage.xcodeBuildCoverage(derivedDataFolder: "Build", minimumCoverage: 50)
 }
