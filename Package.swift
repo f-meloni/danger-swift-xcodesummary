@@ -18,7 +18,7 @@ let package = Package(
         //.package(url: "https://github.com/f-meloni/danger-swift-coverage", from: "0.1.0")
     ],
     targets: [
-        .target(name: "DangerDependencies",dependencies: ["Danger", "DangerXCodeSummary", "DangerSwiftCoverage"]), //dev
+        .target(name: "DangerDependencies",dependencies: ["Danger", "DangerXCodeSummary"]), //dev
         .target(
             name: "DangerXCodeSummary",
             dependencies: ["Danger"]),
