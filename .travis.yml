@@ -11,7 +11,7 @@ cache:
 matrix:
   include:
     - os: osx	
-      osx_image: xcode10	
+      osx_image: xcode11.2	
       install:	
         - gem install bundler	
         - bundle install	
@@ -28,7 +28,7 @@ matrix:
         - gem install bundler
         - bundle install
         - eval "$(curl -sL https://swiftenv.fuller.li/install.sh)"
-        - swiftenv global 4.2
+        - swiftenv global 5.1
         - npm install -g danger
       script:
         - swift test | XCPRETTY_JSON_FILE_OUTPUT=result.json xcpretty -f `xcpretty-json-formatter`
