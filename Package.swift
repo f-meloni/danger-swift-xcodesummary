@@ -10,14 +10,14 @@ let package = Package(
         .library(
             name: "DangerXCodeSummary",
             targets: ["DangerXCodeSummary"]),
-        .library(name: "DangerDeps", type: .dynamic, targets: ["DangerDependencies"]) // dev
+//        .library(name: "DangerDeps", type: .dynamic, targets: ["DangerDependencies"]) // dev
     ],
     dependencies: [
         .package(url: "https://github.com/danger/swift", from: "3.0.0"),
-        .package(url: "https://github.com/f-meloni/Rocket", from: "1.0.0"), // dev
+//        .package(url: "https://github.com/f-meloni/Rocket", from: "1.0.0"), // dev
     ],
     targets: [
-        .target(name: "DangerDependencies",dependencies: ["Danger", "DangerXCodeSummary"]), //dev
+//        .target(name: "DangerDependencies",dependencies: ["Danger", "DangerXCodeSummary"]), //dev
         .target(
             name: "DangerXCodeSummary",
             dependencies: ["Danger"]),
