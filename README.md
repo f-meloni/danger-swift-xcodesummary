@@ -85,3 +85,23 @@ if summary.warningsCount > maxWarningsCount {
   fail("There are more than \(maxWarningsCount) warnings"
 }
 ```
+
+## Filtering results
+Don't show warnings:
+
+```swift
+let summary = XCodeSummary(json: JSONFile.jsonObject(fromString: reportTestJSON), dsl: dsl, resultsFilter: { result in
+    return result.category != .warning
+})
+summary.report()
+```
+
+Filter out any error or warning for a specific path:
+
+```swift
+let summary = XCodeSummary(json: JSONFile.jsonObject(fromString: warningsJSON), dsl: dsl, resultsFilter: { result in
+    guard let file = result.file else { return true }
+    return !file.contains("Sources/DangerXCodeSummary/")
+})
+summary.report()
+```
