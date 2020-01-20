@@ -9,6 +9,6 @@ struct MissingFileErrorParser {
         let reason = missingFileErrorJSON[Keys.reason] ?? ""
         let filePath = missingFileErrorJSON[Keys.filePath] ?? ""
         
-        return Result(message: "**\(reason)**: \(filePath)")
+        return Result(message: "**\(reason)**: \(filePath)", category: .error)
     }
 }

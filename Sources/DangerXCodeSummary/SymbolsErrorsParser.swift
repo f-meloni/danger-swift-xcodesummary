@@ -17,7 +17,7 @@ struct SymbolsErrorsParser {
         "> Symbol: \(symbol) <br />" +
         "> Referenced from: \(reference)"
         
-        return Result(message: resultText)
+        return Result(message: resultText, category: .error)
     }
     
     static func parseDuplicatedSymbols(json: [String:Any]) -> Result {
@@ -27,6 +27,6 @@ struct SymbolsErrorsParser {
         let resultText = "\(message) <br />" +
         "> \(paths.map { $0.split(separator: "/").last! }.joined(separator: "<br />")))"
         
-        return Result(message: resultText)
+        return Result(message: resultText, category: .error)
     }
 }

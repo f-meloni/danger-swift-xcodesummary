@@ -1,6 +1,9 @@
 import Foundation
 import Danger
 
+/// A filter that can be used to hide specific results based on certain conditions.
+public typealias ResultsFilter = (Result) -> Bool
+
 /// Danger-Swift plugin that adds build errors, warnings and unit tests results generated from xcodebuild to your Danger report
 /// Requires xcpretty-json-formatter
 public final class XCodeSummary {
@@ -28,9 +31,9 @@ public final class XCodeSummary {
         let ldWarningMessages: [String] = json[WarningKeys.ldWarning] ?? []
         let compileWarnings: [[String:Any]] = json[WarningKeys.compileWarnings] ?? []
         
-        return warningMessages.map { Result(message: $0) } +
-            ldWarningMessages.map { Result(message: $0) } +
-            compileWarnings.compactMap { try? CompilerMessageParser.parseMessage(messageJSON: $0) }
+        return warningMessages.map { Result(message: $0, category: .warning) } +
+            ldWarningMessages.map { Result(message: $0, category: .warning) } +
+            compileWarnings.compactMap { try? CompilerMessageParser.parseMessage(messageJSON: $0, category: .warning) }
     }()
     
     /// Number of warnings generated during the build
@@ -46,8 +49,8 @@ public final class XCodeSummary {
         let duplicatedSymbols: [[String:Any]] = json[ErrorKeys.duplicatedSymbols] ?? []
         let failedTests: [String:[[String:Any]]] = json[ErrorKeys.testFailures] ?? [:]
         
-        var result = errors.map { Result(message: $0) }
-        result += compileErrors.compactMap { try? CompilerMessageParser.parseMessage(messageJSON: $0) }
+        var result = errors.map { Result(message: $0, category: .error) }
+        result += compileErrors.compactMap { try? CompilerMessageParser.parseMessage(messageJSON: $0, category: .error) }
         result += missingFiles.compactMap { MissingFileErrorParser.parseMissingFileError(missingFileErrorJSON: $0) }
         result += undefinedSymbols.map { SymbolsErrorsParser.parseUndefinedSymbols(json: $0) }
         result += duplicatedSymbols.map { SymbolsErrorsParser.parseDuplicatedSymbols(json: $0) }
@@ -68,18 +71,20 @@ public final class XCodeSummary {
     
     lazy var messages: [Result] = {
         let messages: [String] = json[MessageKeys.testSummary] ?? []
-        return messages.map { Result(message: $0.trimmingCharacters(in: .whitespacesAndNewlines)) }
+        return messages.map { Result(message: $0.trimmingCharacters(in: .whitespacesAndNewlines), category: .message) }
     }()
     
     private let json: [String:Any]
     private let dsl: DangerDSL
+    private let resultsFilter: ResultsFilter?
     
-    init(json: [String:Any], dsl: DangerDSL = Danger()) {
+    init(json: [String:Any], dsl: DangerDSL = Danger(), resultsFilter: ResultsFilter? = nil) {
         self.json = json
         self.dsl = dsl
+        self.resultsFilter = resultsFilter
     }
     
-    public convenience init(filePath: String) {
+    public convenience init(filePath: String, resultsFilter: ResultsFilter? = nil) {
         guard let content = try? String(contentsOfFile: filePath),
             let data = content.data(using: .utf8) else {
             fatalError("Report not found")
@@ -90,12 +95,12 @@ public final class XCodeSummary {
             fatalError("Report file is not a valid json")
         }
         
-        self.init(json: json, dsl: Danger())
+        self.init(json: json, dsl: Danger(), resultsFilter: resultsFilter)
     }
     
     /// Shows all build errors, warnings and unit tests results generated from `xcodebuild` or `Swift Package Manager`
     public func report() {
-        warnings.forEach {
+        warnings.filter(using: resultsFilter).forEach {
             if let file = $0.file,
                 let line = $0.line {
                 dsl.warn(message: $0.message, file: file, line: line)
@@ -104,7 +109,7 @@ public final class XCodeSummary {
             }
         }
         
-        errors.forEach {
+        errors.filter(using: resultsFilter).forEach {
             if let file = $0.file,
                 let line = $0.line {
                 dsl.fail(message: $0.message, file: file, line: line)
@@ -113,7 +118,7 @@ public final class XCodeSummary {
             }
         }
         
-        messages.forEach { dsl.message($0.message) }
+        messages.filter(using: resultsFilter).forEach { dsl.message($0.message) }
     }
 }
 
@@ -123,3 +128,9 @@ extension Dictionary {
     }
 }
 
+extension Array where Element == Result {
+    func filter(using resultsFilter: ResultsFilter?) -> [Element] {
+        guard let resultsFilter = resultsFilter else { return self }
+        return self.filter(resultsFilter)
+    }
+}
