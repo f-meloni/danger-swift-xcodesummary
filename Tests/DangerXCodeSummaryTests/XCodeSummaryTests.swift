@@ -61,4 +61,53 @@ final class XCodeSummaryTests: XCTestCase {
         
         try? FileManager.default.removeItem(atPath: "dsl.json")
     }
+
+    func testItFiltersWarnings() {
+        let summary = XCodeSummary(json: JSONFile.jsonObject(fromString: reportTestJSON), dsl: dsl, resultsFilter: { result in
+            return result.category != .warning
+        })
+        summary.report()
+        XCTAssertEqual(dsl.warnings.count, 0)
+        XCTAssertEqual(dsl.fails.count, 1)
+        XCTAssertEqual(dsl.messages.count, 2)
+
+        try? FileManager.default.removeItem(atPath: "dsl.json")
+    }
+
+    func testItFiltersMessages() {
+        let summary = XCodeSummary(json: JSONFile.jsonObject(fromString: reportTestJSON), dsl: dsl, resultsFilter: { result in
+            return result.category != .message
+        })
+        summary.report()
+        XCTAssertEqual(dsl.warnings.count, 1)
+        XCTAssertEqual(dsl.fails.count, 1)
+        XCTAssertEqual(dsl.messages.count, 0)
+
+        try? FileManager.default.removeItem(atPath: "dsl.json")
+    }
+
+    func testItFiltersErrors() {
+        let summary = XCodeSummary(json: JSONFile.jsonObject(fromString: reportTestJSON), dsl: dsl, resultsFilter: { result in
+            return result.category != .error
+        })
+        summary.report()
+        XCTAssertEqual(dsl.warnings.count, 1)
+        XCTAssertEqual(dsl.fails.count, 0)
+        XCTAssertEqual(dsl.messages.count, 2)
+
+        try? FileManager.default.removeItem(atPath: "dsl.json")
+    }
+
+    func testItFiltersFilePaths() {
+        let summary = XCodeSummary(json: JSONFile.jsonObject(fromString: warningsJSON), dsl: dsl, resultsFilter: { result in
+            guard let file = result.file else { return true }
+            return !file.contains("Sources/DangerXCodeSummary/")
+        })
+        summary.report()
+        XCTAssertEqual(dsl.warnings.count, 2)
+        XCTAssertEqual(dsl.fails.count, 0)
+        XCTAssertEqual(dsl.messages.count, 0)
+
+        try? FileManager.default.removeItem(atPath: "dsl.json")
+    }
 }
