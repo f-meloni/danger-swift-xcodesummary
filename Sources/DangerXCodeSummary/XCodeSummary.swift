@@ -100,7 +100,7 @@ public final class XCodeSummary {
     
     /// Shows all build errors, warnings and unit tests results generated from `xcodebuild` or `Swift Package Manager`
     public func report() {
-        warnings.filter(using: resultsFilter).forEach {
+        warnings.filter(using: resultsFilter).removingDuplicates().forEach {
             if let file = $0.file,
                 let line = $0.line {
                 dsl.warn(message: $0.message, file: file, line: line)
@@ -109,7 +109,7 @@ public final class XCodeSummary {
             }
         }
         
-        errors.filter(using: resultsFilter).forEach {
+        errors.filter(using: resultsFilter).removingDuplicates().forEach {
             if let file = $0.file,
                 let line = $0.line {
                 dsl.fail(message: $0.message, file: file, line: line)
@@ -118,7 +118,7 @@ public final class XCodeSummary {
             }
         }
         
-        messages.filter(using: resultsFilter).forEach { dsl.message($0.message) }
+        messages.filter(using: resultsFilter).removingDuplicates().forEach { dsl.message($0.message) }
     }
 }
 
@@ -132,5 +132,13 @@ extension Array where Element == Result {
     func filter(using resultsFilter: ResultsFilter?) -> [Element] {
         guard let resultsFilter = resultsFilter else { return self }
         return self.filter(resultsFilter)
+    }
+
+    func removingDuplicates() -> [Element] {
+        var addedDict = [Element: Bool]()
+
+        return filter {
+            addedDict.updateValue(true, forKey: $0) == nil
+        }
     }
 }
