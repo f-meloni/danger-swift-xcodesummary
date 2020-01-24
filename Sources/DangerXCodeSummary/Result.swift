@@ -1,5 +1,5 @@
 
-public struct Result: Equatable {
+public struct Result: Equatable, Hashable {
     public enum Category {
         case warning, error, message
     }

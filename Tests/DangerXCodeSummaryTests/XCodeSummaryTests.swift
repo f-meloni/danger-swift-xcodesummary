@@ -110,4 +110,14 @@ final class XCodeSummaryTests: XCTestCase {
 
         try? FileManager.default.removeItem(atPath: "dsl.json")
     }
+
+    func testItFiltersOutDuplicates() {
+        let summary = XCodeSummary(json: JSONFile.jsonObject(fromString: duplicatesJSON), dsl: dsl)
+        summary.report()
+        XCTAssertEqual(dsl.warnings.count, 1)
+        XCTAssertEqual(dsl.fails.count, 1)
+        XCTAssertEqual(dsl.messages.count, 1)
+
+        try? FileManager.default.removeItem(atPath: "dsl.json")
+    }
 }
