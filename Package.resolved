@@ -2,6 +2,15 @@
   "object": {
     "pins": [
       {
+        "package": "DangerSwiftCoverage",
+        "repositoryURL": "https://github.com/f-meloni/danger-swift-coverage",
+        "state": {
+          "branch": null,
+          "revision": "f8dbe265ea8d8d2936d861bff10ea280b742d237",
+          "version": "1.1.0"
+        }
+      },
+      {
         "package": "Logger",
         "repositoryURL": "https://github.com/shibapm/Logger",
         "state": {
