@@ -15,8 +15,8 @@
         "repositoryURL": "https://github.com/nerdishbynature/octokit.swift",
         "state": {
           "branch": null,
-          "revision": "9ad4d6eff94ad1d9873d3b410a47c663c820d4bd",
-          "version": "0.10.0"
+          "revision": "c391cfba4d33f3f4c7d7d8fa6708970f7d30af82",
+          "version": "0.10.1"
         }
       },
       {
@@ -42,8 +42,8 @@
         "repositoryURL": "https://github.com/f-meloni/Rocket",
         "state": {
           "branch": null,
-          "revision": "623cb4ccf55d708d082516ccd5cfea3dac8f9032",
-          "version": "1.0.0"
+          "revision": "61166b38e229e09b53becef2e495eb99f437438a",
+          "version": "1.0.1"
         }
       },
       {
@@ -51,8 +51,8 @@
         "repositoryURL": "https://github.com/danger/swift",
         "state": {
           "branch": null,
-          "revision": "9abfbf269f7b1d4bb799ca8f52620180d63d953e",
-          "version": "3.0.0"
+          "revision": "e5364bd91e21d5a1526ec5ac1fdd83d28743fe94",
+          "version": "3.3.0"
         }
       },
       {
