@@ -84,7 +84,7 @@ public final class XCodeSummary {
         self.resultsFilter = resultsFilter
     }
     
-    public convenience init(filePath: String, resultsFilter: ResultsFilter? = nil) {
+    public convenience init(filePath: String, dsl: DangerDSL = Danger(), resultsFilter: ResultsFilter? = nil) {
         guard let content = try? String(contentsOfFile: filePath),
             let data = content.data(using: .utf8) else {
             fatalError("Report not found")
@@ -95,7 +95,7 @@ public final class XCodeSummary {
             fatalError("Report file is not a valid json")
         }
         
-        self.init(json: json, dsl: Danger(), resultsFilter: resultsFilter)
+        self.init(json: json, dsl: dsl, resultsFilter: resultsFilter)
     }
     
     /// Shows all build errors, warnings and unit tests results generated from `xcodebuild` or `Swift Package Manager`
