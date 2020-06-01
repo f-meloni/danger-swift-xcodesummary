@@ -72,7 +72,12 @@ DangerXCodeSummary can be used with SPM (this repo uses it on the Linux CI), but
 To generate the report run:
 
 ```bash
-swift test | XCPRETTY_JSON_FILE_OUTPUT=result.json xcpretty -f `xcpretty-json-formatter`
+swift test 2>&1 | XCPRETTY_JSON_FILE_OUTPUT=xcpretty_xcode_summary.json xcpretty -f `xcpretty-json-formatter`
+2<&1
+
+[...]
+
+swift run danger-swift ci --fail-on-errors=true
 ```
 
 ## Send report to Danger
