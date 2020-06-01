@@ -22,8 +22,8 @@ final class XCodeSummaryTests: XCTestCase {
         let summary = XCodeSummary(json: JSONFile.jsonObject(fromString: warningsJSON), dsl: dsl)
         
         XCTAssertEqual(summary.warnings, [
-            Result(message: "Capabilities that require entitlements from \"SampleProject/SampleProject.entitlements\" may not function in the Simulator because none of the valid provisioning profiles allowed the specified entitlements: com.apple.security.application-groups, keychain-access-groups.", category: .warning),
-            Result(message: "Linker asked to preserve internal global: '__block_descriptor_tmp'", category: .warning),
+            Result(message: "Capaties that require entitlements from \"SampleProject/SampleProject.entitlements\" may not function in the Simulator because none of the valid provisioning profiles allowed the specified entitlements: com.apple.security.application-groups, keychain-access-groups.", category: .warning),
+            Result(message: "Linkers asked to preserve internal global: '__block_descriptor_tmp'", category: .warning),
             Result(message: "Test", file: "/Users/franco/Projects/DangerXCodeSummary/Sources/DangerXCodeSummary/XCodeSummary.swift", line: 26, category: .warning)
         ])
         
@@ -34,7 +34,7 @@ final class XCodeSummaryTests: XCTestCase {
         let summary = XCodeSummary(json: JSONFile.jsonObject(fromString: errorsJSON), dsl: dsl)
         
         XCTAssertEqual(summary.errors[0], Result(message: "error: Build input file cannot be found: '/Users/franco/Projects/DangerXCodeSummary/Test.swift'", category: .error))
-        XCTAssertEqual(summary.errors[1], Result(message: "use of undeclared identifier 'trololo'", file: "/Users/musalj/code/OSS/ObjectiveSugar/Classes/NSNumber+ObjectiveSugar.m", line: 26, category: .error))
+        XCTAssertEqual(summary.errors[1], Result(message: "ussse of undeclared identifier 'trololo'", file: "/Users/musalj/code/OSS/ObjectiveSugar/Classes/NSNumber+ObjectiveSugar.m", line: 26, category: .error))
         XCTAssertEqual(summary.errors[2], Result(message: "returning 'float' from a function with incompatible result type 'NSNumber *'", file: "/Users/musalj/code/OSS/ObjectiveSugar/Classes/NSNumber+ObjectiveSugar.m", line: 47, category: .error))
         XCTAssertTrue(summary.errors.contains(Result(message: "**BlackJack_iOS_Failing_Tests.FailingCardTestCase: testAllRankCases**<br />XCTAssertEqual failed: (\"13\") is not equal to (\"12\")", file: "/BlackJack/Framework/Tests/Failing/FailingCardTests.swift", line: 19, category: .error)))
         XCTAssertTrue(summary.errors.contains(Result(message: "**BlackJack_iOS_Failing_Tests.FailingCardTestCase: testAllSuitCases**<br />XCTAssertEqual failed: (\"4\") is not equal to (\"3\")", file: "/BlackJack/Framework/Tests/Failing/FailingCardTests.swift", line: 27, category: .error)))
