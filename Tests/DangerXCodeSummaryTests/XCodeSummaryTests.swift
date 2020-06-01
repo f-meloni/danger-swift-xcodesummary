@@ -46,7 +46,7 @@ final class XCodeSummaryTests: XCTestCase {
         let summary = XCodeSummary(json: JSONFile.jsonObject(fromString: testsSummaryJSON), dsl: dsl)
         
         XCTAssertEqual(summary.messages, [
-            Result(message: "Executed 3 tests, with 0 failures (0 unexpected) in 0.039 (0.055) seconds", category: .message),
+            Result(message: "Executed 30 tests, with 0 failures (0 unexpected) in 0.039 (0.055) seconds", category: .message),
             Result(message: "Executed 14 tests, with 0 failures (0 unexpected) in 0.015 (0.025) seconds", category: .message)
         ])
     }
