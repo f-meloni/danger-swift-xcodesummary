@@ -17,6 +17,11 @@ You can use a "full SPM" solution to install both `danger-swift` and `DangerXCod
 - Add to your `Package.swift`:
 
 ```swift
+// swift-tools-version:5.2
+// The swift-tools-version declares the minimum version of Swift required to build this package.
+
+import PackageDescription
+
 let package = Package(
     ...
     products: [
@@ -26,12 +31,14 @@ let package = Package(
     ],
     dependencies: [
         ...
+        // Danger
+        .package(name: "danger-swift", url: "https://github.com/danger/swift.git", from: "3.0.0"), // dev
         // Danger Plugins
-        .package(url: "https://github.com/f-meloni/danger-swift-xcodesummary", from: "0.1.0") // dev
+        .package(name: "DangerXCodeSummary", url: "https://github.com/f-meloni/danger-swift-xcodesummary", from: "1.2.1"), // dev
         ...
     ],
     targets: [
-        .target(name: "DangerDependencies", dependencies: ["Danger", "DangerXCodeSummary"]), // dev
+        .target(name: "DangerDependencies", dependencies: ["danger-swift", "DangerXCodeSummary"]) // dev
         ...
     ]
 )
