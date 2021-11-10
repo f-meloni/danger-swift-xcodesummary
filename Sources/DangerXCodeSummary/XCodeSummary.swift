@@ -40,6 +40,11 @@ public final class XCodeSummary {
     public var warningsCount: Int {
         return warnings.count
     }
+
+    /// Numbber of warnings filtered using the provided result filter
+    public var filteredWariningCount: Int {
+        return warnings.filter(using: resultsFilter).removingDuplicates().count
+    }
     
     lazy var errors: [Result] = {
         let errors: [String] = json[ErrorKeys.errors] ?? []
@@ -67,6 +72,11 @@ public final class XCodeSummary {
     /// Number of errors generated during the build
     public var errorsCount: Int {
         return errors.count
+    }
+
+    /// Numbber of warnings filtered using the provided result filter
+    public var filteredErrorCount: Int {
+        return errors.filter(using: resultsFilter).removingDuplicates().count
     }
     
     lazy var messages: [Result] = {
