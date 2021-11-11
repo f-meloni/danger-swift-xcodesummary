@@ -41,8 +41,8 @@ public final class XCodeSummary {
         return warnings.count
     }
 
-    /// Numbber of warnings filtered using the provided result filter
-    public var filteredWariningCount: Int {
+    /// Number of warnings filtered using the provided result filter
+    public var filteredWarningCount: Int {
         return warnings.filter(using: resultsFilter).removingDuplicates().count
     }
     
@@ -74,7 +74,7 @@ public final class XCodeSummary {
         return errors.count
     }
 
-    /// Numbber of warnings filtered using the provided result filter
+    /// Number of warnings filtered using the provided result filter
     public var filteredErrorCount: Int {
         return errors.filter(using: resultsFilter).removingDuplicates().count
     }
