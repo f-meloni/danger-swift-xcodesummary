@@ -120,4 +120,29 @@ final class XCodeSummaryTests: XCTestCase {
 
         try? FileManager.default.removeItem(atPath: "dsl.json")
     }
+
+    func testItFilteredWarningCount() {
+        let summary = XCodeSummary(json: JSONFile.jsonObject(fromString: filterWarningsJSON), dsl: dsl) { result in
+            if let file = result.file,
+               file.contains("XCodeSummary.swift") {
+                return true
+            }
+            return false
+        }
+        XCTAssertEqual(summary.filteredWarningCount, 2)
+        try? FileManager.default.removeItem(atPath: "dsl.json")
+    }
+
+    func testItFilteredErrorCount() {
+        let summary = XCodeSummary(json: JSONFile.jsonObject(fromString: errorsJSON), dsl: dsl) { result in
+            if let file = result.file,
+               file.contains("NSNumber+ObjectiveSugar") {
+                return true
+            }
+            return false
+        }
+        XCTAssertEqual(summary.filteredErrorCount, 2)
+        try? FileManager.default.removeItem(atPath: "dsl.json")
+    }
 }
+
