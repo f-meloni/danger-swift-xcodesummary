@@ -1,0 +1,85 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+      - master
+
+jobs:
+  test-on-macos-11:
+    name: Test on macOS 11
+    runs-on: macOS-11
+    strategy:
+      matrix:
+        xcode: ["12.4", "12.5.1", "13.0"]
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Cache dependencies
+      uses: actions/cache@v2
+      with:
+        path: |
+          .build/artifacts
+          .build/checkouts
+          .build/repositories
+        key: ${{ runner.os }}-dependencies-${{ matrix.xcode }}-${{ hashFiles('**/Package.resolved') }}
+        restore-keys: |
+          ${{ runner.os }}-dependencies-${{ matrix.xcode }}-${{ hashFiles('**/Package.resolved') }}
+          ${{ runner.os }}-dependencies-${{ matrix.xcode }}-
+    - name: Select Xcode
+      run: |
+        xcodebuild -version
+        ls -nt /Applications/ | grep "Xcode*"
+        sudo xcode-select -switch /Applications/Xcode_${{ matrix.xcode }}.app
+        xcodebuild -version
+    - name: Install danger-js
+      run: brew install danger/tap/danger-js
+      
+    - run: gem install bundler	
+    - run: bundle install	
+    - run: xcodebuild test -scheme DangerXCodeSummary-Package -derivedDataPath Build/ -enableCodeCoverage YES | XCPRETTY_JSON_FILE_OUTPUT=result.json xcpretty -f `xcpretty-json-formatter`
+
+    - run: swift run danger-swift ci --verbose --failOnErrors
+      if: ${{ github.event_name == 'pull_request' }}
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  test-on-linux:
+    name: Test on Linux
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        swift: ["5.3.3", "5.5.2"]
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-node@v2
+
+    - name: Cache dependencies
+      uses: actions/cache@v2
+      with:
+        path: |
+          .build/artifacts
+          .build/checkouts
+          .build/repositories
+        key: ${{ runner.os }}-dependencies-${{ matrix.swift }}-${{ hashFiles('**/Package.resolved') }}
+        restore-keys: |
+          ${{ runner.os }}-dependencies-${{ matrix.swift }}-${{ hashFiles('**/Package.resolved') }}
+          ${{ runner.os }}-dependencies-${{ matrix.swift }}-
+    - name: Install danger-js
+      run: |
+        yarn global add danger
+        echo `yarn global bin` >> $GITHUB_PATH
+    - run: echo ${{ matrix.swift }} > .swift-version
+
+    - uses: YOCKOW/Action-setup-swift@v1
+
+    - run: gem install bundler	
+    - run: bundle install	
+    - run: swift test | XCPRETTY_JSON_FILE_OUTPUT=result.json xcpretty -f `xcpretty-json-formatter`
+
+    - run: swift run danger-swift ci --verbose --failOnErrors
+      if: ${{ github.event_name == 'pull_request' }}
+      env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
